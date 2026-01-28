@@ -19,7 +19,7 @@ This project demonstrates real-world backend development practices rather than j
  - Spring Web
  - Spring Data JPA
  - Hibernate
- - H2 / MySQL
+ - PostgreSQL
  - Maven
  - Multi-Module Maven project
 
