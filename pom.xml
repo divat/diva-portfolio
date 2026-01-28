@@ -13,6 +13,7 @@
 
     <!-- Modules of the multi-module project -->
     <modules>
+        <module>reference</module>
         <module>expense</module>
         <module>app</module>
     </modules>
@@ -27,6 +28,7 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
         </dependencies>
     </dependencyManagement>
 
