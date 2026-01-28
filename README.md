@@ -24,15 +24,28 @@ This project demonstrates real-world backend development practices rather than j
  - Multi-Module Maven project
 
 ## Project Structure
+expense-tracker
+│
+├── pom.xml(parent / aggregator)
+│
+├── expense-tracker-app(Spring Boot starter module - Core Engine)
+├── expense-module
+├── budget-module
+├── category-module
+├── notification-module
+├── security-module
+├── common-module
+└── infrastructure-module
+
 com.example.expensetracker
 │
-├── controller      // REST controllers
-├── service         // Business logic
-├── domain      // Database access layer
-├── persistence          // JPA entities
-├── dto             // Request/Response DTOs
-├── exception       // Custom exceptions & handlers
-└── config          // Configuration classes
+├── controller(REST controllers)
+├── service(Business logic)
+├── domain(Business objects)
+├── persistence(JPA entities, JPA Repos)
+├── dto(Request/Response DTOs)
+├── exception(Custom exceptions & handlers)
+└── config(Configuration classes)
 
 # API Endpoints
 ## Method	Endpoint	Description
