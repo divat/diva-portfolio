@@ -11,6 +11,7 @@ public class Expense {
     private final double amount;
     private final LocalDate expenseDate;
     private final String notes;
+    private final LocalDate createdAt;
 
     // Private constructor → controlled creation
     public Expense(
@@ -19,7 +20,8 @@ public class Expense {
             String categoryId,
             double amount,
             LocalDate expenseDate,
-            String notes
+            String notes,
+            LocalDate createdAt
     ) {
         this.id = id;
         this.userId = userId;
@@ -27,6 +29,7 @@ public class Expense {
         this.amount = amount;
         this.expenseDate = expenseDate;
         this.notes = notes;
+        this.createdAt = createdAt;
     }
 
     // Single factory method
@@ -35,7 +38,8 @@ public class Expense {
             String categoryId,
             double amount,
             LocalDate expenseDate,
-            String notes
+            String notes,
+            LocalDate createdAt
     ) {
         return new Expense(
                 UUID.randomUUID().toString(),
@@ -43,7 +47,8 @@ public class Expense {
                 categoryId,
                 amount,
                 expenseDate,
-                notes
+                notes,
+                createdAt
         );
     }
 
@@ -54,4 +59,8 @@ public class Expense {
     public double getAmount() { return amount; }
     public LocalDate getExpenseDate() { return expenseDate; }
     public String getNotes() { return notes; }
+    public LocalDate getCreatedAt() {
+        return createdAt;
+    }
+    
 }

@@ -4,14 +4,22 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import com.expensetracker.app.domain.Expense;
 import com.expensetracker.app.domain.ExpenseRepository;
 import com.expensetracker.app.persistence.mapper.ExpenseMapper;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+
 @Repository
 public class ExpenseRepositoryAdapter implements ExpenseRepository {
+
+    @PersistenceContext
+    private EntityManager em;
 
     private final JpaExpenseRepository jpaRepository;
 
@@ -40,5 +48,23 @@ public class ExpenseRepositoryAdapter implements ExpenseRepository {
                     .toList();
     }
 
+    @Override
+    public Page<Expense> findAll(Pageable pageable) {
+       return jpaRepository.findAll(pageable)
+                .map(ExpenseMapper::toDomain);
+    }
+
+    @Override
+    public List<ExpenseEntity> findNextExpenses(LocalDate cursor, int limit) {
+        return em.createQuery(" SELECT e FROM ExpenseEntity e "
+            +"WHERE (e.createdAt < :cursor) "
+            +"ORDER BY e.createdAt DESC "
+            ,ExpenseEntity.class)
+            .setParameter("cursor", cursor)
+            .setMaxResults(limit)
+            .getResultList();
+    }
+
+   
     
 }

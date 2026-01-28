@@ -43,6 +43,13 @@ public class ExpenseEntity {
     @Column(length = 255)
     private String description;
 
+    @Column(name = "created_at")
+    private LocalDate createdAt;
+
+    
+    @Column(name = "updated_at")
+    private LocalDate updatedAt;
+
     // JPA requires this
     protected ExpenseEntity() {
     }
@@ -54,7 +61,8 @@ public class ExpenseEntity {
             double amount,
             String categoryCode,
             LocalDate expenseDate,
-            String description
+            String description,
+            LocalDate createdAt
     ) {
         this.expenseId = expenseId;
         this.userId = userId;
@@ -62,6 +70,7 @@ public class ExpenseEntity {
         this.categoryCode = categoryCode;
         this.expenseDate = expenseDate;
         this.description = description;
+        this.createdAt = createdAt;
     }
 
     // Getters only (no business logic)
@@ -93,4 +102,22 @@ public class ExpenseEntity {
     public String getDescription() {
         return description;
     }
+
+    public LocalDate getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDate createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDate getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDate updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    
 }

@@ -19,7 +19,8 @@ public final class ExpenseMapper {
                 expense.getAmount(),
                 expense.getCategoryId(),
                 expense.getExpenseDate(),
-                expense.getNotes()
+                expense.getNotes(),
+                expense.getCreatedAt()
         );
     }
 
@@ -31,7 +32,8 @@ public final class ExpenseMapper {
                 entity.getCategoryCode(),
                 entity.getAmount(),
                 entity.getExpenseDate(),
-                entity.getDescription()
+                entity.getDescription(),
+                entity.getCreatedAt()
         );
     }
 
