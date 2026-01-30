@@ -1,0 +1,20 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: exp-track
+      POSTGRES_USER: expense
+      POSTGRES_PASSWORD: expense
+
+  expense-app:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/exp-track
+      SPRING_DATASOURCE_USERNAME: expense
+      SPRING_DATASOURCE_PASSWORD: expense
