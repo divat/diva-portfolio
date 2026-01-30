@@ -24,15 +24,8 @@ This project demonstrates real-world backend development practices rather than j
  - Multi-Module Maven project
 
 ## Project Structure
-com.example.expensetracker
-│
-├── controller      // REST controllers
-├── service         // Business logic
-├── domain      // Database access layer
-├── persistence          // JPA entities
-├── dto             // Request/Response DTOs
-├── exception       // Custom exceptions & handlers
-└── config          // Configuration classes
+
+<img width="640" height="352" alt="image" src="https://github.com/user-attachments/assets/4e248d31-1bf9-40f9-a397-eb016c5a152c" />
 
 # API Endpoints
 ## Method	Endpoint	Description
