@@ -14,7 +14,7 @@ public interface ExpenseRepository {
 
     Expense save(Expense expense);
 
-    Optional<Expense> findById(Long expenseId);
+    Optional<Expense> fecthExpense(Long expenseId);
 
     List<Expense> findByUserAndDateRange(
         String userid,
@@ -25,4 +25,9 @@ public interface ExpenseRepository {
     Page<Expense> findAll(Pageable pageable);
 
     List<ExpenseEntity> findNextExpenses(LocalDate cursor, int limit);
+
+    Optional<ExpenseEntity> findById(Long expenseId);
+
+    void deleteExpense(ExpenseEntity entity);
+ 
 }

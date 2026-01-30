@@ -14,9 +14,7 @@ public class CreateExpenseCommand {
     private final double amount;
     private final LocalDate date;
     private final String notes;
-
     
-
     public CreateExpenseCommand(String userId, String categoryId, double amount, LocalDate date, String notes) {
         this.userId = userId;
         this.categoryId = categoryId;
@@ -24,8 +22,6 @@ public class CreateExpenseCommand {
         this.date = date;
         this.notes = notes;
     }
-
-
 
     public String getUserId() {
         return userId;
@@ -55,6 +51,4 @@ public class CreateExpenseCommand {
         return notes;
     }
 
-    
-    
 }

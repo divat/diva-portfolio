@@ -2,6 +2,10 @@ package com.expensetracker.app.persistence;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,6 +23,8 @@ import jakarta.persistence.Table;
         @Index(name = "idx_expense_date", columnList = "expense_date")
     }
 )
+@SQLDelete(sql = "UPDATE expenses SET deleted = true, deleted_at = now() WHERE id = ?")
+@Where(clause = "deleted = false")
 public class ExpenseEntity {
 
     @Id
@@ -49,6 +55,11 @@ public class ExpenseEntity {
     
     @Column(name = "updated_at")
     private LocalDate updatedAt;
+
+    @Column(name = "deleted_at")
+    private LocalDateTime deletedAt;
+
+    private boolean deleted;
 
     // JPA requires this
     protected ExpenseEntity() {
@@ -119,5 +130,50 @@ public class ExpenseEntity {
         this.updatedAt = updatedAt;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setExpenseId(String expenseId) {
+        this.expenseId = expenseId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
+    public void setCategoryCode(String categoryCode) {
+        this.categoryCode = categoryCode;
+    }
+
+    public void setExpenseDate(LocalDate expenseDate) {
+        this.expenseDate = expenseDate;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public LocalDateTime getDeletedAt() {
+        return deletedAt;
+    }
+
+    public void setDeletedAt(LocalDateTime deletedAt) {
+        this.deletedAt = deletedAt;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+
+    
     
 }

@@ -11,8 +11,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -61,5 +64,20 @@ public class ExpenseController {
         LocalDateTime cursor
     ) {
         return ApiResponse.success(expenseService.getCursorPageExpenses(LocalDate.now(), limit));
+    }
+
+    @PutMapping("/{expenseId}")
+    public ApiResponse<ExpenseResponse> updateExpense(@PathVariable("expenseId") Long expenseId, @RequestBody ExpenseRequest expenseRequest) {
+        String userId = "USER_001";
+
+        Expense expense = expenseService.updateExpense(expenseId, ExpenseMapper.toCommand(expenseRequest, userId));
+        
+        return ApiResponse.success(ExpenseMapper.toResponse(expense));
+    }
+
+    @DeleteMapping("/{id}")
+    public ApiResponse<Void> deleteExpense(@PathVariable(name = "id") Long id) {
+        expenseService.deleteExpense(id);
+        return ApiResponse.success(null);
     }
 }

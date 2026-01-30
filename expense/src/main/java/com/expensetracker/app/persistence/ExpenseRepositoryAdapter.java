@@ -35,7 +35,7 @@ public class ExpenseRepositoryAdapter implements ExpenseRepository {
     }
 
     @Override
-    public Optional<Expense> findById(Long expenseId) {
+    public Optional<Expense> fecthExpense(Long expenseId) {
         return jpaRepository.findById(expenseId)
                 .map(ExpenseMapper::toDomain);
     }
@@ -65,6 +65,15 @@ public class ExpenseRepositoryAdapter implements ExpenseRepository {
             .getResultList();
     }
 
+    @Override
+    public Optional<ExpenseEntity> findById(Long expenseId) {
+        return jpaRepository.findById(expenseId);
+    }
+
+    @Override
+    public void deleteExpense(ExpenseEntity entity) {
+        jpaRepository.delete(entity);
+    }
    
     
 }
