@@ -61,6 +61,9 @@ public class ExpenseEntity {
 
     private boolean deleted;
 
+    @Column(name = "category_id")
+    private Long categoryId;
+
     // JPA requires this
     protected ExpenseEntity() {
     }
@@ -71,6 +74,7 @@ public class ExpenseEntity {
             String userId,
             double amount,
             String categoryCode,
+            Long categoryId,
             LocalDate expenseDate,
             String description,
             LocalDate createdAt
@@ -79,6 +83,7 @@ public class ExpenseEntity {
         this.userId = userId;
         this.amount = amount;
         this.categoryCode = categoryCode;
+        this.categoryId = categoryId;
         this.expenseDate = expenseDate;
         this.description = description;
         this.createdAt = createdAt;
@@ -172,6 +177,14 @@ public class ExpenseEntity {
 
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
+    }
+
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
     }
 
     

@@ -1,13 +1,12 @@
 package com.expensetracker.app.service;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.jaxb.PageAdapter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +15,7 @@ import com.expensetracker.app.domain.Expense;
 import com.expensetracker.app.domain.ExpensePolicy;
 import com.expensetracker.app.domain.ExpenseRepository;
 import com.expensetracker.app.domain.exception.InvalidExpenseException;
+import com.expensetracker.app.event.ExpenseCreatedEvent;
 import com.expensetracker.app.persistence.ExpenseEntity;
 import com.expensetracker.app.persistence.mapper.ExpenseMapper;
 
@@ -25,19 +25,41 @@ public class ExpenseService {
 
     private final ExpenseRepository expenseRepository;
     private final ExpensePolicy expensePolicy;
+    private final ApplicationEventPublisher eventPublisher;
 
-    public ExpenseService(ExpenseRepository expenseRepository, ExpensePolicy expensePolicy) {
+    public ExpenseService(ExpenseRepository expenseRepository, ExpensePolicy expensePolicy, 
+                        ApplicationEventPublisher eventPublisher){
         this.expenseRepository = expenseRepository;
         this.expensePolicy = expensePolicy;
+        this.eventPublisher = eventPublisher;
     }
+    
 
     @Transactional
     public Expense createExpense(CreateExpenseCommand createExpense) {
         
         expensePolicy.validateExpenseCreation(createExpense);
 
+       /* // --- 1️⃣ Real-time budget check ---
+        YearMonth month = YearMonth.from(createExpense.getDate());
+
+        BigDecimal spentSoFar = budgetService.getSpentAmount(createExpense.getCatgId(), month);
+        BigDecimal budgetLimit = budgetService.getLimitAmount(createExpense.getCatgId(), month);
+
+        if (budgetLimit != null) { // budget exists for this category/month
+            BigDecimal newTotal = spentSoFar.add(BigDecimal.valueOf(createExpense.getAmount()));
+
+            if (newTotal.compareTo(budgetLimit) > 0) {
+                throw new BudgetExceededException(
+                    "Adding this expense exceeds the budget by " +
+                    newTotal.subtract(budgetLimit)
+                );
+            }
+        }*/
+
         Expense expense = Expense.create(createExpense.getUserId(), 
                                 createExpense.getCategoryId(),
+                                createExpense.getCatgId(),
                                 createExpense.getAmount(),
                                 createExpense.getDate(),
                                 createExpense.getNotes(),
@@ -45,6 +67,17 @@ public class ExpenseService {
                           );
 
         Expense saved = expenseRepository.save(expense);
+
+        eventPublisher.publishEvent(
+            new ExpenseCreatedEvent(
+                saved.getId(), 
+                saved.getCatgId(), 
+                BigDecimal.valueOf(saved.getAmount()), 
+                saved.getExpenseDate(),
+                saved.getUserId(),
+                "EXPENSE_CREATED"
+            )
+        );
 
         return saved;
     }

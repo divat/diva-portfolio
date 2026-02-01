@@ -7,7 +7,7 @@ import lombok.Data;
 public class ExpenseResponse {
 
     private String expenseId;
-    private String categoryId;
+    private Long categoryId;
     private double amount;
     private LocalDate expenseDate;
     private String notes;
@@ -17,10 +17,10 @@ public class ExpenseResponse {
     public void setExpenseId(String expenseId) {
         this.expenseId = expenseId;
     }
-    public String getCategoryId() {
+    public Long getCategoryId() {
         return categoryId;
     }
-    public void setCategoryId(String categoryId) {
+    public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
     }
     public double getAmount() {

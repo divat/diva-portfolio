@@ -14,13 +14,15 @@ public class CreateExpenseCommand {
     private final double amount;
     private final LocalDate date;
     private final String notes;
+    private final Long catgId;
     
-    public CreateExpenseCommand(String userId, String categoryId, double amount, LocalDate date, String notes) {
+    public CreateExpenseCommand(String userId, String categoryId, double amount, LocalDate date, String notes, Long catId) {
         this.userId = userId;
         this.categoryId = categoryId;
         this.amount = amount;
         this.date = date;
         this.notes = notes;
+        this.catgId = catId;
     }
 
     public String getUserId() {
@@ -50,5 +52,11 @@ public class CreateExpenseCommand {
     public String getNotes() {
         return notes;
     }
+
+    public Long getCatgId() {
+        return catgId;
+    }
+
+    
 
 }

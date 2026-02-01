@@ -7,7 +7,8 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@SpringBootApplication(scanBasePackages = "com.expensetracker")
+@SpringBootApplication
+//(scanBasePackages = "com.expensetracker")
 //@EntityScan("com.expensetracker.app.domain")
 //@EnableJpaRepositories("com.expensetracker.app.persistence")
 public class AppApplication {

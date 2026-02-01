@@ -17,7 +17,8 @@ public final class ExpenseMapper {
                 expense.getId(),
                 expense.getUserId(),
                 expense.getAmount(),
-                expense.getCategoryId(),
+                expense.getCategoryCode(),
+                expense.getCatgId(),
                 expense.getExpenseDate(),
                 expense.getNotes(),
                 expense.getCreatedAt()
@@ -30,6 +31,7 @@ public final class ExpenseMapper {
                 entity.getExpenseId(),
                 entity.getUserId(),
                 entity.getCategoryCode(),
+                entity.getCategoryId(),
                 entity.getAmount(),
                 entity.getExpenseDate(),
                 entity.getDescription(),
@@ -38,14 +40,14 @@ public final class ExpenseMapper {
     }
 
     public static CreateExpenseCommand toCommand(ExpenseRequest request, String userId) {
-        return new CreateExpenseCommand(userId, request.getCategoryId(), request.getAmount(), 
-                    request.getExpenseDate(), request.getNotes());
+        return new CreateExpenseCommand(userId, request.getCategoryCode(), request.getAmount(), 
+                    request.getExpenseDate(), request.getNotes(), request.getCategoryId());
     }
 
     public static ExpenseResponse toResponse(Expense expense) {
         ExpenseResponse response = new ExpenseResponse();
         response.setExpenseId(expense.getId());
-        response.setCategoryId(expense.getCategoryId());
+        response.setCategoryId(expense.getCatgId());
         response.setAmount(expense.getAmount());
         response.setExpenseDate(expense.getExpenseDate());
         response.setNotes(expense.getNotes());

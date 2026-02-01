@@ -1,11 +1,14 @@
 package com.expensetracker.app.persistence;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.expensetracker.app.domain.Expense;
@@ -74,6 +77,5 @@ public class ExpenseRepositoryAdapter implements ExpenseRepository {
     public void deleteExpense(ExpenseEntity entity) {
         jpaRepository.delete(entity);
     }
-   
     
 }

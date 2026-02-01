@@ -11,7 +11,7 @@ import lombok.Data;
 public class ExpenseRequest {
 
     @NotBlank
-    private String categoryId;
+    private String categoryCode;
 
     @Positive
     private double amount;
@@ -21,12 +21,14 @@ public class ExpenseRequest {
 
     private String notes;
 
-    public String getCategoryId() {
-        return categoryId;
+    private Long categoryId;
+
+    public String getCategoryCode() {
+        return categoryCode;
     }
 
-    public void setCategoryId(String categoryId) {
-        this.categoryId = categoryId;
+    public void setCategoryCode(String categoryCode) {
+        this.categoryCode = categoryCode;
     }
 
     public double getAmount() {
@@ -51,6 +53,14 @@ public class ExpenseRequest {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
     }
 
     

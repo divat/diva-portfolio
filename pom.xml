@@ -14,7 +14,9 @@
     <!-- Modules of the multi-module project -->
     <modules>
         <module>reference</module>
+        <module>budget</module>
         <module>expense</module>
+        <module>notification</module>
         <module>app</module>
     </modules>
 

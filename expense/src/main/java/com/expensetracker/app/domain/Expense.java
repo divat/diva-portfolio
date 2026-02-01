@@ -7,18 +7,20 @@ public class Expense {
 
     private String id;
     private String userId;
-    private String categoryId;
+    private Long catgId;
     private double amount;
     private LocalDate expenseDate;
     private String notes;
     private LocalDate createdAt;
     private LocalDate updatedAt;
+    private String categoryId;
 
     // Private constructor → controlled creation
     public Expense(
             String id,
             String userId,
             String categoryId,
+            Long categoryId2,
             double amount,
             LocalDate expenseDate,
             String notes,
@@ -27,6 +29,7 @@ public class Expense {
         this.id = id;
         this.userId = userId;
         this.categoryId = categoryId;
+        this.catgId = categoryId2;
         this.amount = amount;
         this.expenseDate = expenseDate;
         this.notes = notes;
@@ -36,7 +39,8 @@ public class Expense {
     // Single factory method
     public static Expense create(
             String userId,
-            String categoryId,
+            String categoryCode,
+            Long categoryId,
             double amount,
             LocalDate expenseDate,
             String notes,
@@ -45,6 +49,7 @@ public class Expense {
         return new Expense(
                 UUID.randomUUID().toString(),
                 userId,
+                categoryCode,
                 categoryId,
                 amount,
                 expenseDate,
@@ -57,7 +62,7 @@ public class Expense {
     // Getters only
     public String getId() { return id; }
     public String getUserId() { return userId; }
-    public String getCategoryId() { return categoryId; }
+    public Long getCatgId() { return catgId; }
     public double getAmount() { return amount; }
     public LocalDate getExpenseDate() { return expenseDate; }
     public String getNotes() { return notes; }
@@ -99,6 +104,14 @@ public class Expense {
 
     public void setUpdatedAt(LocalDate updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public String getCategoryCode() {
+        return categoryId;
+    }
+
+    public void setCategoryCode(String categoryId) {
+        this.categoryId = categoryId;
     }
 
     
